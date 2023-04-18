@@ -1,0 +1,103 @@
+{{#section 'css'}}
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/css/fileinput.min.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/themes/fa/theme.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script>
+        $('#txtDOB').datetimepicker({
+            format: 'd/m/Y',
+            timepicker: false,
+            mask: true,
+        });
+    </script>
+
+
+    <script>
+
+        tinymce.init({
+            selector: '#txtProfile',
+            menubar: false,
+            plugins: 'paste image link autolink lists table media',
+            toolbar: [
+                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link',
+            ],
+        });
+
+    </script>
+
+{{/section}}
+
+<form action="" method="post" style="width: 100%">
+    <div class="content three_quarter">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 style="text-align: center">My Profile</h4>
+            </div>
+            <div class="card-body">
+                {{#if err_message}}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{err_message}}
+                    </div>
+                {{/if}}
+                <div class="form-group">
+                    <input type="hidden" class="form-control" value="{{users.ID_USER}}" id="txtIDUSER" name="ID_USER"
+                        readonly>
+                </div>
+                <div class="form-group">
+                    <label for="txtUsername">Username</label>
+                    <input type="text" class="form-control" value="{{users.USERNAME}}" id="txtUsername" name="USERNAME"
+                        readonly>
+                </div>
+                <div class="form-group">
+                    <label for="txtOldPassword">Current Password</label>
+                    <input type="password" class="form-control" id="txtOldPassword" autofocus name="OldPassword"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword"> New Password</label>
+                    <input type="password" class="form-control" id="txtPassword" name="PASSWORD" required>
+                </div>
+                <div class="form-group">
+                    <label for="txtConfirm">Confirm new Password</label>
+                    <input type="password" class="form-control" id="txtConfirm">
+                </div>
+                <div class="form-group">
+                    <label for="txtName">Name</label>
+                    <input type="text" class="form-control" value="{{users.FULLNAME}}" id="txtName" name="FULLNAME"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="txtEmail">Email</label>
+                    <input type="email" class="form-control" value="{{users.EMAIL}}" id="txtEmail" name="EMAIL"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtProfile">Short Description</label>
+                    <textarea id="txtProfile" name="PROFILE">{{users.PROFILE}}</textarea>
+                </div>
+
+            </div>
+            <div class="card-footer text-muted" style="display: flex;justify-content:center;align-items:center">
+                <button type="submit" >
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Update profile
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>

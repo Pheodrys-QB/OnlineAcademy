@@ -1,0 +1,313 @@
+{{#section 'js'}}
+    <script>
+        $(document).ready(function () {
+            $("#content").on("click", "#openPreview", function (e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $("#" + id).toggle()
+            })
+
+
+        })
+    </script>
+
+{{/section}}
+<div class="card w-100">
+    <h4 class="card-header">
+        {{this.course.COURSENAME}}
+    </h4>
+    <div class="card-body">
+        {{#if err_message}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{err_message}}
+            </div>
+        {{/if}}
+
+
+        <div class="row">
+            <div class="col-3" style="background-color:black;padding-bottom: 20px;">
+
+                <div style="margin-top: 20px;"><img src="/public/imgs/courses/{{this.course.ID_COURSE}}_main.png"
+                        alt="{{this.course.COURSENAME}}" title="{{this.course.COURSENAME}}"></div>
+            </div>
+            <div class="col-6" style="background-color:black">
+                <div style="padding-top: 40px;">
+                    <div style="margin-right: 20px;">
+                        <p class="card-text" id="txt" style="color: white"><span style="font-size: 20px;color: white">
+                                {{this.course.SHORTDES}}</span></p>
+                    </div>
+                    <div style="margin-right: 20px;">
+                        <p class="card-text" id="txt" style="color:#ffd141"> {{rate}}/5<i class="fa fa-star"
+                                aria-hidden="true"></i>
+                            <span class="text" style="color:plum"> ({{format_number num}}) ratings </span>
+                            <span class="text" style="color: white">{{format_number this.course.STUNUM}} students
+                            </span>
+                        </p>
+                        <p class="card-text" id="txt" style="color: white">Created date: {{this.course.CREATEDATE}}</p>
+                        <p class="card-text" id="txt" style="color: white">Lastest update: {{this.course.LASTUPDATE}}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-3" style="background-color: antiquewhite ">
+                {{#if isDiscount}}
+                    <p class="card-text"><span class="text"
+                            style="font-size: 30px"><del>{{format_number this.course.PRICE}} VND</del></span></p>
+                    <p class="card-text" style="font-size: 25px">Price: <span class="text-danger"
+                            style="font-size: 25px">{{format_number realPrice}} VND</span></p>
+                {{else}}
+                    <p class="card-text"><span class="text" style="font-size: 25px">{{format_number this.course.PRICE}}
+                            VND</span></p>
+                {{/if}}
+                {{#if isLogin}}
+                    {{#if isInstructor}}
+                        <div class="input-group mb-3">
+                            <input type="hidden" value="{{course.ID_COURSE}}" name="ID_COURSE">
+                            <p>
+                                <a class="btn btn-primary" href="/course/edit?id={{course.ID_COURSE}}" type="submit" role="button" style="font-size: 25px">
+                                    Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            </p>
+
+                        </div>
+                    {{else}}
+                        {{#if isSave}}
+                            {{#if isBought}}
+                                <span>
+                                    <a class="btn btn-primary" href="/learningPage?id={{this.course.ID_COURSE}}"
+                                        role="button" style="font-size: 25px">Start
+                                        learning <i class="fa fa-play" aria-hidden="true"></i></a>
+                                </span>
+                            {{else}}
+                                <span>
+                                    <a class="btn btn-primary"
+                                        href="/category/course/detail/{{this.course.ID_COURSE}}/enroll" type="submit"
+                                        role="button" style="font-size: 25px">Buy now</a>
+                                </span>
+                            {{/if}}
+                        {{else}}
+                            {{#if isBought}}
+                                <span>
+                                    <a class="btn btn-primary" href="/learningPage?id={{this.course.ID_COURSE}}"
+                                        role="button" style="font-size: 25px">Start
+                                        learning <i class="fa fa-play" aria-hidden="true"></i></a>
+                                </span>
+                            {{else}}
+                                <span>
+                                    <a class="btn btn-primary"
+                                        href="/category/course/detail/{{this.course.ID_COURSE}}/enroll" type="submit"
+                                        role="button" style="font-size: 25px">Buy now</a>
+                                </span>
+                            {{/if}}
+
+                            <span>
+                                <a class="btn btn-primary" href="/category/course/detail/{{this.course.ID_COURSE}}/save"
+                                    role="button" style="font-size: 25px"> <i class="fa fa-heart"></i></a>
+                            </span>
+
+                        {{/if}}
+
+
+                    {{/if}}
+
+                {{else}}
+                    <span>
+                        <a class="btn btn-primary" href="/account/login" type="submit" role="button"
+                            style="font-size: 25px">Buy
+                            now</a>
+                    </span>
+                {{/if}}
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="row" style="margin-top: 20px" style="border-top-style:solid">
+            <div class="col-6">
+                <h5>DESCRIPTION</h5>
+                <div class="row">
+
+
+
+                    <p class="card-text" style="flex-wrap: wrap;">{{{this.course.DESCRIPTIONS}}}</p>
+
+
+
+                </div>
+
+                <h5 style="margin-top: 20px;">Instructor</h5>
+                <div class="row" style="margin-top: 20px">
+
+                    <p>
+                    <div style="padding-left: 20px;">
+                        <div><img style="max-height: 150px; max-width: 150px;"
+                                class="rounded-circle shadow-4-strong img-fluid; "
+                                src="/public/imgs/user/avatar{{this.course.ID_USER}}.png" alt="teacher"
+                                title="teacher"></div>
+
+                        <div style="margin-left: 20px;">
+                            <p class="card-text">Instructor: {{instructor.FULLNAME}}</p>
+                            <p class="card-text">Profile:{{{instructor.PROFILE}}} </p>
+                        </div>
+
+                    </div>
+                    </p>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-6" id="content">
+                <h5 style="margin-bottom: 20px">Course Content</h5>
+
+
+                {{#each chapterdata }}
+
+
+                    <div id="accordion">
+
+                        <div class="card">
+                            <div class="card-header" id="heading{{data.ID_CHAPTER}}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                        data-target="#collapse{{data.ID_CHAPTER}}" aria-expanded="true"
+                                        aria-controls="collapse{{data.ID_CHAPTER}}" style="font-size: 15px">
+                                        {{data.CHAPTERNAME}}
+                                    </button>
+                                </h5>
+                            </div>
+
+
+
+                            <div id="collapse{{data.ID_CHAPTER}}" class="collapse show"
+                                aria-labelledby="heading{{data.ID_CHAPTER}}" data-parent="#accordion">
+
+                                <div class="card-body">
+                                    <div class="list-group">
+
+                                        <a id="openPreview" class="btn btn-link" data-id={{@index}}>preview </a><br>
+                                        <div class="d-flex justify-content-center">
+                                            <video width="400" style="display: none;" controls id={{@index}}>
+                                                <source src="/public/videos/{{@index}}_preview.mp4" type="video/mp4">
+                                                Your browser does not support HTML video.
+                                            </video>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+                {{/each }}
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+        <h4>Student also bought</h4>
+        <div class="row" style="margin-top: 20px">
+
+            <div class="d-flex justify-content-between">
+                {{#each top5}}
+                    <div>
+                        <a href="/category/course/detail/{{top555.ID_COURSE}}"><img
+                                src="/public/imgs/courses/{{top555.ID_COURSE}}_thumbnail.png"
+                                alt="{{top555.COURSENAME}}" title="{{top555.COURSENAME}}"></a>
+                    </div>
+                    <div>
+                        <p style="padding-left: 20px;">
+                            <a style="color:plum"
+                                href="/category/course/detail/{{top555.ID_COURSE}}">{{top555.COURSENAME}}</a>
+
+                        </p>
+                        <p style="padding-left: 20px;">{{format_number top555.PRICE}} VND</p>
+                    </div>
+
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 style="padding-left: 20px;">Course ratings</h4>
+    <div class="row" style="margin-top: 20px">
+
+        <div class="d-flex justify-content-between">
+            {{#each feedbackdata}}
+                <card>
+
+                </card>
+                <div style="margin-left: 20px;">
+
+                    <a href="/category/course/detail/{{user.ID_USER}}"><img style="max-height: 100px; max-width: 100px;"
+                            class="rounded-circle shadow-4-strong img-fluid sm"
+                            src="/public/imgs/user/avatar{{user.ID_USER}}.png" alt="{{user.FULLNAME}}"
+                            title="{{user.FULLNAME}}"></a>
+
+                </div>
+                <div></div>
+
+                <div style="padding-left: 20px;">
+                    <p>
+                    <p style="color: black" href="#">{{user.FULLNAME}}</p>
+                    <div class="card-text" id="txt" style="color:#ffd141"> {{feedback.RATE}}/5<i class="fa fa-star"
+                            aria-hidden="true"></i>
+                    </div>
+
+
+
+                    </p>
+                    <p class="card-text"><span class="text">{{feedback.FEEDBACK}} </span></p>
+
+
+
+                </div>
+
+            {{/each}}
+        </div>
+    </div>
+
+
+</div>
+</div>

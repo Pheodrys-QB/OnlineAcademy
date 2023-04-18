@@ -1,0 +1,117 @@
+{{#section 'css'}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /*current page has background color is white and color is black*/
+    .nav-link:hover {
+      background-color: rgb(255, 255, 255);
+      color: rgb(0, 0, 0);
+    }
+
+    .nav-link:focus {
+      background-color: rgb(255, 255, 255);
+      color: rgb(0, 0, 0);
+    }
+
+    .nav-link {
+      color: white;
+    }
+
+    .nav-linh h5:focus {
+      color: black;
+    }
+  </style>
+{{/section}}
+
+<div class="header">
+  <div class="d-flex justify-content-center" style="background-color: black;">
+    <h1 style="color: rgb(255, 255, 255);">My learning</h1>
+  </div>
+</div>
+<ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: black;">
+  <!-- Add the "active" class to the "li" element of the default active tab -->
+  <li class="nav-item">
+    <a class="nav-link" id="allcourse-tab" data-toggle="tab" href="#allcourse" role="tab" aria-controls="allcourse"
+      aria-selected="true">
+      <h5>All course</h5>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="wishlist-tab" data-toggle="tab" href="#wishlist" role="tab" aria-controls="wishlist"
+      aria-selected="false">
+      <h5>Wishlist</h5>
+    </a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="wishlist" role="tabpanel" aria-labelledby="allcourse-tab">
+    <div id="" class="btn-group">
+      {{#each wishlist}}
+        <a class="btn d-flex align-items-center ml-5 mt-5" href="https://www.example.com/courses/course1">
+          <div class="card-body">
+            <img src="/public/imgs/sp/{{list.ID_COURSE}}/main_thumbs.jpg" class="card-img-top img-thumbnail"
+              style="width:100%">
+            <h5 class="card-title">{{list.COURSENAME}}</h5>
+            <p class="card-text">
+              {{list.SHORTDES}}
+            </p>
+            <div class="card-text">
+              {{star}}
+
+            </div>
+            <div class="card-text">
+              <span class="price" style="font-weight:600">{{format_number list.PRICE}}</span>
+              <span class="discount">
+                {{#if_equal list.DISCOUNT 0}}
+                
+                
+                {{else}}
+                  <span class="discount">{{mul list.PRICE list.DISCOUNT}}</span>
+                {{/if_equal}}
+              </span>
+            </div>
+          </div>
+        </a>
+      {{/each}}
+    </div>
+  </div>
+  <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="wishlist-tab">
+    <h3>Profile</h3>
+    <p>Some content for the profile tab.</p>
+  </div>
+</div>
+
+{{#section 'js'}}
+  <script>
+    // Get the tab content elements
+    var tabContent = document.getElementsByClassName("tab-pane");
+
+    // Hide all tab content elements by default
+    for (var i = 0; i < tabContent.length; i++) {
+      tabContent[i].style.display = "none";
+    }
+
+    // Add an event listener to each tab
+    var tabLinks = document.getElementsByClassName("nav-link");
+    for (var i = 0; i < tabLinks.length; i++) {
+      tabLinks[i].addEventListener("click", function (event) {
+        // Get the ID of the tab content element to show
+        var tabId = event.currentTarget.getAttribute("href");
+
+        // Hide all tab content elements
+        for (var i = 0; i < tabContent.length; i++) {
+          tabContent[i].style.display = "none";
+        }
+
+        // Show the tab content element with the matching ID
+        document.querySelector(tabId).style.display = "block";
+      });
+    }
+    // Show the first tab content element by default
+    document.querySelector("#wishlist-tab").style.display = "block";
+
+  </script>
+
+{{/section}}

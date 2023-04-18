@@ -1,0 +1,41 @@
+
+.carousel-inner {
+  height: 100px;
+};
+.multi-item-carousel{
+  .carousel-inner{
+    > .item{
+      transition: 5000ms ease-in-out left;
+    }
+    .active{
+      &.left{
+        left:-15%;
+      }
+      &.right{
+        left:5px;
+      }
+    }
+    .next{
+      left: 5px;
+    }
+    .prev{
+      left: -5px;
+    }
+    @media all and (transform-3d), (-webkit-transform-3d) {
+      > .item{
+        // use your favourite prefixer here
+        transition: 5000ms ease-in-out left;
+        transition: 5000ms ease-in-out all;
+        backface-visibility: visible;
+        transform: none!important;
+      }
+    }
+  }
+  .carouse-control{
+    &.left, &.right{
+      background-image: none;
+    }
+  }
+}
+
+

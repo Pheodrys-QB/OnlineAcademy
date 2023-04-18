@@ -1,0 +1,131 @@
+
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+
+  body.loading::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 1000;
+  }
+  </style>
+  {{/section}}
+
+  <div class="d-flex align-items-center justify-content-space-evenly search-result-header mt-4 ml-5">
+            <!--display categories name -->
+
+            <div class="search-result-header-sort mt-4 ml-5">
+              <select class="form-control" id="filter" style ="width: auto;">
+                <option>Sort By</option>
+                <option>Star rating</option>
+                <option>Price ascending</option>
+              </select>
+            </div>
+    </div>
+{{#if this.empty}} 
+          <div class="card-body">
+            <h5 class="card-title">
+              No course found
+            </h5>
+          </div>
+   {{else}}
+  <ul>
+        {{#each this.course}}
+          <div class="d-flex flex-row w-75 mx-auto">
+            <a class="btn d-flex align-items-center justify-content-between p-2" href="/category/course/detail/{{ID_COURSE}}">
+              <div class="col-4">
+                <img src="/public/imgs/courses/{{ID_COURSE}}_thumbnail.png" alt="Image" class="img-thumbnail" style="width:600px; height: 200px;">
+              </div>
+              <div class="main d-flex flex-column text-left pl-4">
+                <div class="tittle">  <h3>{{COURSENAME}}</h3></div>
+                <div class="description">{{SHORTDES}}</div>
+                <div class = "author">
+                  {{name}}
+                </div>
+                <div class="rating d-flex align-items-center">
+                  <span class="start">
+                    {{star}}
+                    {{renderStars star}}
+
+                  </span>
+                  <span class="number ml-2">({{RATENUM}})</span>
+                </div>
+              </div>
+              <div class="price d-flex flex-column align-items-center justify-content-center ml-5">
+                <div class="price"><h3>{{format_number PRICE}}</h3></div>
+                <div class="discount"><h4>
+                  {{#if_equal this.DISCOUNT 0}}
+                  {{else}}
+                  {{mul PRICE DISCOUNT}}
+                  {{/if_equal}}
+                </h4></div>
+              </div>
+            </a>
+          </div>
+          {{/each}}
+      </ul>
+  {{/if}}
+  <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item disabled">
+          <span class="page-link">Previous</span>
+        </li>
+        {{#each this.pageNumbers}}
+          {{#if isCurrent}}
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">{{value}}</span>
+          </li>
+          {{else}}
+          <li class="page-item">
+            <a class="page-link" href="?page={{value}}">{{value}}</a>
+          </li>
+          {{/if}}
+        {{/each}}
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li> 
+      </ul>
+    </nav>
+
+    {{#section 'js'}}
+<script>
+      const select = document.querySelector('#filter');
+const ul = document.querySelector('ul');
+const body = document.querySelector('body');
+
+select.addEventListener('change', () => {
+  body.classList.add('loading');
+
+  setTimeout(() => {
+    let courses = [...ul.querySelectorAll('.d-flex.flex-row')];
+
+    if (select.value === 'Star rating') {
+      courses.sort((a, b) => {
+        const ratingA = a.querySelector('.star').textContent;
+        const ratingB = b.querySelector('.star').textContent;
+        return ratingA - ratingB;
+      });
+    } else if (select.value === 'Price ascending') {
+      courses.sort((a, b) => {
+        const priceA = a.querySelector('.price h3').textContent;
+        const priceB = b.querySelector('.price h3').textContent;
+        return priceA - priceB;
+      });
+    }
+
+    ul.innerHTML = '';
+    courses.forEach(course => ul.appendChild(course));
+
+    body.classList.remove('loading');
+  }, 1000); // Wait 1 second before sorting
+});
+
+</script>
+{{/section}}

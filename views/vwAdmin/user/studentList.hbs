@@ -1,0 +1,168 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="public/css/studentList.scss" />
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+        $(document).ready(function () {
+            $("#content").on("click", "#enableUser", function (e) {
+                e.preventDefault();
+                var t = $(this).parent('li').parent('ul').parent('td').parent('tr');
+                let userid = t.data("id");
+                $.getJSON("/admin/enableUser?userId=" + userid, function (data) {
+                    let html = `<a class="candidate-list-favourite order-2 text-success" ><i class="fas fa-check"></i></a>`
+                    let icon = t.children('td#active')
+                    icon.html(html);
+                    let btn = t.children('td#activate').children('ul');
+                    html = `<li><a class="btn btn-danger" id="disableUser"style="width: 80px;">DISABLE</a></li>`
+                    btn.html(html);
+                })
+            });
+
+            $("#content").on("click", "#disableUser", function (e) {
+                e.preventDefault();
+                var t = $(this).parent('li').parent('ul').parent('td').parent('tr');
+                let userid = t.data("id");
+                $.getJSON("/admin/disableUser?userId=" + userid, function (data) {
+                    let html = `<a class="candidate-list-favourite order-2 text-danger" ><i class="fas fa-lock"></i></a>`
+                    let icon = t.children('td#active')
+                    icon.html(html);
+                    let btn = t.children('td#activate').children('ul')
+                    html = `<li><a class="btn btn-primary" id="enableUser"style="width: 80px;">ENABLE</a></li>`
+                    btn.html(html);
+                })
+            })
+
+             $("#content").on("click", "#revokeUser", function (e) {
+                e.preventDefault();
+                var t = $(this).parent('li').parent('ul').parent('td').parent('tr');
+                let userid = t.data("id");
+                $.getJSON("/admin/revokeUser?userId=" + userid, function (data) {
+                    let html = `<li><a class="btn btn-primary" id="grantUser"style="width: 80px;">GRANT</a></li>`
+                    
+                    let btn = t.children('td#privilege').children('ul');
+                    btn.html(html);
+                })
+            });
+
+            $("#content").on("click", "#grantUser", function (e) {
+                e.preventDefault();
+                var t = $(this).parent('li').parent('ul').parent('td').parent('tr');
+                let userid = t.data("id");
+                $.getJSON("/admin/grantUser?userId=" + userid, function (data) {
+                    let html = `<li><a class="btn btn-danger" id="revokeUser"style="width: 80px;">REVOKE</a></li>`
+                    let btn = t.children('td#privilege').children('ul')
+                    btn.html(html);
+                })
+            })
+
+        });
+    </script>
+
+
+{{/section}}
+
+<div class="container mt-3 mb-4">
+    <div class="col-lg-10 mt-4 mt-lg-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm" id="content">
+                    <table class="table manage-candidates-top mb-0">
+                        <thead>
+                            <tr>
+                                <th>{{#if isStudent}}Students{{else}}Teachers{{/if}}</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-right pr-4">Privilege</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each this.students}}
+                                <tr class="candidates-list" data-id={{ID_USER}}>
+                                    <td class="title row" style="padding-top: 15px;">
+                                        <div class="col-sm-3">
+                                            <img class="rounded-circle shadow-4-strong img-fluid"
+                                                src="/public/images/users/avatar{{ID_USER}}.png" alt={{ID_USER}}>
+                                        </div>
+                                        <div class="candidate-list-details col-9">
+                                            <div class="candidate-list-info">
+                                                <div class="candidate-list-title">
+                                                    <h5 class="mb-0"><a href="#">{{FULLNAME}}</a></h5>
+                                                </div>
+                                                <div class="candidate-list-option">
+                                                    <ul class="list-unstyled">
+                                                        <li><i class="fas fa-envelope"></i> {{EMAIL}}</li>
+                                                        <li><i class="fas fa-user"></i> {{USERNAME}}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="candidate-list-favourite-time text-center" id="active" style="padding-top: 35px;">
+                                        {{#if DISABLE}}
+                                            <a class="candidate-list-favourite order-2 text-danger"><i
+                                                    class="fas fa-lock"></i></a>
+
+                                        {{else}}
+                                            <a class="candidate-list-favourite order-2 text-success"><i
+                                                    class="fas fa-check"></i></a>
+                                        {{/if}}
+                                    </td>
+                                    <td id="activate" style="padding-top: 30px;">
+                                        <ul class="list-unstyled mb-0 d-flex justify-content-end" style="width: 90px;">
+                                            {{#if DISABLE}}
+                                                <li><a class="btn btn-primary" id="enableUser" style="width: 80px;">ENABLE</a></li>
+                                            {{else}}
+                                                <li><a class="btn btn-danger" id="disableUser"style="width: 80px;">DISABLE</a></li>
+                                            {{/if}}
+
+                                        </ul>
+                                    </td>
+                                    <td id="privilege" style="padding-top: 30px;">
+                                        <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                                            {{#if_equal TYPE 3}}
+                                                <li><a class="btn btn-primary" id="grantUser"style="width: 80px;">GRANT</a></li>
+                                            {{else}}
+                                                <li><a class="btn btn-danger" id="revokeUser"style="width: 80px;">REVOKE</a></li>
+                                            {{/if_equal}}
+
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center mt-3 mt-sm-3">
+                        <nav class="shadow-sm">
+                            <ul class="pagination">
+
+                                <li class="page-item {{#if hasNotPrev}}disabled{{/if}}">
+                                    <a class="page-link" href="?page={{prev}}">Previous</a>
+                                </li>
+                                {{#each this.pageNumbers}}
+                                    {{#if isCurrent}}
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link">{{value}}</span>
+                                        </li>
+                                    {{else}}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{value}}">{{value}}</a>
+                                        </li>
+                                    {{/if}}
+                                {{/each}}
+                                {{#if isNotEnd}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{next}}">Next</a>
+                                    </li>
+                                {{/if}}
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

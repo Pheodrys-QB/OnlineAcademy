@@ -1,0 +1,148 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="public/css/studentList.scss" />
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+        $(document).ready(function () {
+            $("#content").on("click", "#enableCourse", function (e) {
+                e.preventDefault();
+                var t = $(this).parent('li').parent('ul').parent('div').parent('div').parent('div')
+                let courseID = t.data("id");
+                $.getJSON("/admin/enableCourse?courseId=" + courseID, function (data) {
+                    let html = `<a class="candidate-list-favourite order-2 text-success align-item-center d-flex justify-content-center pt-3"><i class="fas fa-check fa-lg"></i></a>`
+                    let icon = t.children('div#to').children('div#active');
+                    icon.html(html);
+                    let btn = t.children('div#to').children('div#activate').children('ul')
+                    html = `<li><a class="btn btn-danger" id="disableCourse" style="width: 80px;">DISABLE</a></li>`
+                    btn.html(html);
+
+                })
+            });
+            $("#content").on("click", "#disableCourse", function (e) {
+                e.preventDefault();
+                var t = $(this).parent('li').parent('ul').parent('div').parent('div').parent('div')
+                let courseID = t.data("id");
+                $.getJSON("/admin/disableCourse?courseId=" + courseID, function (data) {
+                    let html = `<a class="candidate-list-favourite order-2 text-danger align-item-center d-flex justify-content-center pt-3"><i class="fas fa-lock fa-lg"></i></a>`
+                    let icon = t.children('div#to').children('div#active');
+                    icon.html(html);
+                    let btn = t.children('div#to').children('div#activate').children('ul')
+                    html = `<li><a class="btn btn-primary" id="enableCourse" style="width: 80px;">ENABLE</a></li>`
+                    btn.html(html);
+                })
+            })
+
+        });
+    </script>
+{{/section}}
+
+
+<div class="container">
+    <div class="d-flex flex-column align-items-end search-result-header mt-4 ml-5 mb-3">
+        <div class="search-result-header-sort mt-4 ml-5">
+            <select class="form-control" id="filter" style="width: auto;">
+                <option>Sort By</option>
+                <option>Star rating</option>
+                <option>Price ascending</option>
+            </select>
+        </div>
+    </div>
+    <div id="content">
+        {{#each this.courseList}}
+            <div class="row w-100 h-100 mt-3 mb-5" data-id={{course.ID_COURSE}}>
+                <div class="col-sm h-100"><img
+                        src="/public/imgs/courses/{{course.ID_COURSE}}_thumbnail.png" alt="Image"
+                        class="img-thumbnail"></div>
+                <div class="col-xl-6 h-100">
+                    <a href="#">
+                        <h5 class="card-title">{{course.COURSENAME}}</h5>
+                    </a>
+                    <div class="card-text">{{course.SHORTDES}}</div>
+                    <div class="card-text text-muted">{{instructor.FULLNAME}}</div>
+                    <div>{{courseRate}} {{renderStars courseRate}} ({{course.RATENUM}})</div>
+
+                    {{#if bestSeller}}
+                        <span class="bg-primary text-white font-italic">Bestseller</span>
+                    {{else}}
+                        {{#if newC}}
+                            <span class="bg-success text-white font-italic">New</span>
+                        {{/if}}
+                    {{/if}}
+                </div>
+
+                <div class="col-lg-2" id="to">
+                    <h5 class="card-title shadow-sm text-warning text-right align-text-bottom">
+                        {{format_number realPrice}} VND</h5>
+                    {{#if course.DISCOUNT}}
+                        <h6 class="text-muted text-right align-text-bottom"><del>{{format_number this.course.PRICE}}
+                                VND</del></h6>
+                    {{/if}}
+                    <div id="active">
+                        {{#if course.DISABLE}}
+                            <a
+                                class="candidate-list-favourite order-2 text-danger align-item-center d-flex justify-content-center pt-3"><i
+                                    class="fas fa-lock fa-lg"></i></a>
+
+                        {{else}}
+                            <a
+                                class="candidate-list-favourite order-2 text-success align-item-center d-flex justify-content-center pt-3"><i
+                                    class="fas fa-check fa-lg"></i></a>
+                        {{/if}}
+                    </div>
+                    <div id="activate" style="padding-top: 30px;">
+                        <ul class="list-unstyled mb-0 d-flex d-flex justify-content-end" style="width: 90px;">
+                            {{#if course.DISABLE}}
+                                <li><a class="btn btn-primary" id="enableCourse" style="width: 80px;">ENABLE</a></li>
+                            {{else}}
+                                <li><a class="btn btn-danger" id="disableCourse" style="width: 80px;">DISABLE</a></li>
+                            {{/if}}
+                        </ul>
+                    </div>
+                </div>
+                <!--                <div id="privilege" style="padding-top: 30px;">-->
+                <!--                    <ul class="list-unstyled mb-0 d-flex justify-content-end">-->
+                <!--                        {{#if_equal TYPE 3}}-->
+                <!--                            <li><a class="btn btn-primary" id="grantUser"style="width: 80px;">GRANT</a></li>-->
+                <!--                        {{else}}-->
+                <!--                            <li><a class="btn btn-danger" id="revokeUser"style="width: 80px;">REVOKE</a></li>-->
+                <!--                        {{/if_equal}}-->
+
+                <!--                    </ul>-->
+                <!--                </div>-->
+            </div>
+        {{/each}}
+    </div>
+
+
+    <div class="d-flex justify-content-center mt-3 mt-sm-3">
+        <nav class="shadow-sm">
+            <ul class="pagination">
+
+                <li class="page-item {{#if hasNotPrev}}disabled{{/if}}">
+                    <a class="page-link" href="?page={{prev}}">Previous</a>
+                </li>
+                {{#each this.pageNumbers}}
+                    {{#if isCurrent}}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{value}}</span>
+                        </li>
+                    {{else}}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{value}}">{{value}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+                {{#if isNotEnd}}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{next}}">Next</a>
+                    </li>
+                {{/if}}
+
+            </ul>
+        </nav>
+    </div>
+
+</div>
