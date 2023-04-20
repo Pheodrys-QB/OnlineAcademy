@@ -40,8 +40,7 @@
                                 {{this.course.SHORTDES}}</span></p>
                     </div>
                     <div style="margin-right: 20px;">
-                        <p class="card-text" id="txt" style="color:#ffd141"> {{rate}}/5<i class="fa fa-star"
-                                aria-hidden="true"></i>
+                        <p class="card-text" id="txt" style="color:#7a766a"> {{ renderStars rate}}
                             <span class="text" style="color:plum"> ({{format_number num}}) ratings </span>
                             <span class="text" style="color: white">{{format_number this.course.STUNUM}} students
                             </span>
@@ -291,8 +290,7 @@
                 <div style="padding-left: 20px;">
                     <p>
                     <p style="color: black" href="#">{{user.FULLNAME}}</p>
-                    <div class="card-text" id="txt" style="color:#ffd141"> {{feedback.RATE}}/5<i class="fa fa-star"
-                            aria-hidden="true"></i>
+                    <div class="card-text" id="txt" style="color:#000000"> {{renderStars feedback.RATE}}
                     </div>
 
 
