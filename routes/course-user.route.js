@@ -426,7 +426,23 @@ router.get("/detail/:id/save", async function (req, res) {
   });
 });
 
-router.get("/detail/:id/create_vnpay", async function (req, res) {
+function sortObject(obj) {
+	let sorted = {};
+	let str = [];
+	let key;
+	for (key in obj){
+		if (obj.hasOwnProperty(key)) {
+		str.push(encodeURIComponent(key));
+		}
+	}
+	str.sort();
+    for (key = 0; key < str.length; key++) {
+        sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
+    }
+    return sorted;
+}
+
+router.post("/detail/:id/create_vnpay", async function (req, res) {
   let isLogin = req.session.auth;
 
 
