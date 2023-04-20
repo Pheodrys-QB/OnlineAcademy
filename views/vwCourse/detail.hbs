@@ -70,7 +70,8 @@
                         <div class="input-group mb-3">
                             <input type="hidden" value="{{course.ID_COURSE}}" name="ID_COURSE">
                             <p>
-                                <a class="btn btn-primary" href="/course/edit?id={{course.ID_COURSE}}" type="submit" role="button" style="font-size: 25px">
+                                <a class="btn btn-primary" href="/course/edit?id={{course.ID_COURSE}}" type="submit"
+                                    role="button" style="font-size: 25px">
                                     Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
                             </p>
 
@@ -85,9 +86,15 @@
                                 </span>
                             {{else}}
                                 <span>
-                                    <a class="btn btn-primary"
+                                    {{!-- <a class="btn btn-primary" 
                                         href="/category/course/detail/{{this.course.ID_COURSE}}/enroll" type="submit"
-                                        role="button" style="font-size: 25px">Buy now</a>
+                                        role="button" style="font-size: 25px">Buy now</a> --}}
+                                    <form id="frmCreatePayment"
+                                        action="/category/course/detail/{{this.course.ID_COURSE}}/create_vnpay"
+                                        method="post"></form>
+
+                                    <a class="btn btn-primary" href="javascript: $('#frmCreatePayment').submit();"
+                                        type="submit" role="button" style="font-size: 25px">Buy now</a>
                                 </span>
                             {{/if}}
                         {{else}}
@@ -99,9 +106,15 @@
                                 </span>
                             {{else}}
                                 <span>
-                                    <a class="btn btn-primary"
+                                    {{!-- <a class="btn btn-primary"
                                         href="/category/course/detail/{{this.course.ID_COURSE}}/enroll" type="submit"
-                                        role="button" style="font-size: 25px">Buy now</a>
+                                        role="button" style="font-size: 25px">Buy now</a> --}}
+                                    <form id="frmCreatePayment2"
+                                        action="/category/course/detail/{{this.course.ID_COURSE}}/create_vnpay"
+                                        method="post"></form>
+
+                                    <a class="btn btn-primary" href="javascript: $('#frmCreatePayment2').submit();"
+                                        type="submit" role="button" style="font-size: 25px">Buy now</a>
                                 </span>
                             {{/if}}
 
@@ -154,8 +167,8 @@
                     <div style="padding-left: 20px;">
                         <div><img style="max-height: 150px; max-width: 150px;"
                                 class="rounded-circle shadow-4-strong img-fluid; "
-                                src="/public/imgs/user/avatar{{this.course.ID_USER}}.png" alt="teacher"
-                                title="teacher"></div>
+                                src="/public/imgs/user/avatar{{this.course.ID_USER}}.png" alt="teacher" title="teacher">
+                        </div>
 
                         <div style="margin-left: 20px;">
                             <p class="card-text">Instructor: {{instructor.FULLNAME}}</p>
