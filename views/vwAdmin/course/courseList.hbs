@@ -68,10 +68,7 @@
                 <div class="col-lg-2" id="to">
                     <h5 class="card-title shadow-sm text-warning text-right align-text-bottom">
                         {{format_number realPrice}} VND</h5>
-                    {{#if course.DISCOUNT}}
-                        <h6 class="text-muted text-right align-text-bottom"><del>{{format_number this.course.PRICE}}
-                                VND</del></h6>
-                    {{/if}}
+                   
                     <div id="active">
                         {{#if course.DISABLE}}
                             <a

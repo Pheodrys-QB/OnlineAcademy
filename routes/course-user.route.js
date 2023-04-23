@@ -148,6 +148,7 @@ router.get("/detail/:id/enroll", async function (req, res) {
   let isInstructor = false;
   let isSave = false;
 
+
   const courseID = req.params.id || 0;
 
   const course = await courseModel.findbyID(courseID);
@@ -261,7 +262,7 @@ router.get("/detail/:id/enroll", async function (req, res) {
     ID_USER: req.session.authUser.ID_USER,
 
     RATE: 0,
-    SALE_PRICE: course.PRICE;
+    SALE_PRICE: course.PRICE,
     FEEDBACK: null,
     DONE: 0,
   };

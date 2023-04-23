@@ -4,6 +4,7 @@ import fieldModel from "../services/field.model.js";
 import categoryModel from "../services/category.model.js";
 import courseModel from "../services/course.model.js";
 import userCourseModel from "../services/user-course.model.js";
+import usercourseModel from "../models/user-course.model.js"
 import auth from "../middlewares/auth.mdw.js";
 
 const router = express.Router();
@@ -82,9 +83,14 @@ router.get('/manageCourse',auth,  async function(req, res) {
   }
 
   const courses = [];
+
+
+
   for (let course of courseList) {
       let instructor = await userModel.ADMINgetCourseFromUser(course.ID_USER);
       let rate= await userCourseModel.ADMINgetAvgRateByCourseId(course.ID_COURSE);
+      let salePrice = await usercourseModel.findPriceEnrollCourse(course.ID_COURSE)
+
       let courseRate = null;
       if(rate === null){
           courseRate = 0;
@@ -112,15 +118,11 @@ router.get('/manageCourse',auth,  async function(req, res) {
           bestSeller = 0;
       }
       let realPrice = 0;
+
       let isDiscount = true;
-      if (isNaN(parseInt(course.DISCOUNT)) || parseInt(course.DISCOUNT) === 0) {
-          realPrice = course.PRICE;
-          isDiscount = false;
-      } else {
-          let price = +course.PRICE,
-              sale = +course.DISCOUNT;
-          realPrice = price - (price * sale) / 100;
-      }
+
+      realPrice = salePrice*0.2;
+
       courses.push({
           course,
           instructor,
