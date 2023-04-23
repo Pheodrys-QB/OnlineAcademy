@@ -50,6 +50,10 @@ app.engine(
       format_number(val) {
         return numeral(val).format("0,0");
       },
+      format_number2(val1, val2) {
+        let  val = val1*val2/100;
+        return numeral(val).format("0,0");
+      },
       if_equal(val1, val2, options) {
         return val1 == val2 ? options.fn(this) : options.inverse(this);
       },

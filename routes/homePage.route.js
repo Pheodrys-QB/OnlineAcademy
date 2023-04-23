@@ -46,12 +46,25 @@ router.get('/', async function(req, res) {
             }
             newC = 0;
         }
+        let realPrice = 0;
+        let isDiscount = true;
+        if (course.DISCOUNT === 0) {
+            realPrice = course.PRICE;
+            isDiscount = false;
+        } else {
+            let price = +course.PRICE,
+                sale = +course.DISCOUNT;
+            realPrice = price - (price * sale) / 100;
+        }
+
         items.push({
             course,
             instructor,
             courseRate,
             bestSeller,
-            newC
+            newC,
+            realPrice,
+            isDiscount
         });
     }
     for (let course of newCourseList) {
@@ -81,12 +94,24 @@ router.get('/', async function(req, res) {
             }
             newC = 0;
         }
+        let realPrice = 0;
+        let isDiscount = true;
+        if (course.DISCOUNT === 0) {
+            realPrice = course.PRICE;
+            isDiscount = false;
+        } else {
+            let price = +course.PRICE,
+                sale = +course.DISCOUNT;
+            realPrice = price - (price * sale) / 100;
+        }
         items2.push({
             course,
             instructor,
             courseRate,
             bestSeller,
-            newC
+            newC,
+            realPrice,
+            isDiscount
         });
     }
     //for (let field of mostTrendingFields) {
