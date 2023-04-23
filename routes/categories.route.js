@@ -1,10 +1,13 @@
 import express from 'express';
 import categoriesService from '../services/category.service.js';
+import courseService from "../services/course.service.js"
 
 const router = express.Router();
 router.get('/byCat/:id', async function (req, res) {
   const id = req.params.id || 0;
-
+  const sort = req.params.sort || 0;
+  let isSort = false;
+  if(sort != 0) isSort = true;
   const categories = await categoriesService.allByCat();
   res.locals.lcCategories = categories;
 
@@ -32,6 +35,11 @@ router.get('/byCat/:id', async function (req, res) {
   const list = await categoriesService.findPageByCatId(id, limit, offset);
   // average rating
   const averageRating = await categoriesService.getAvgRate(id);
+  let tempcourse = {
+    id: id,
+    RATE: averageRating
+  }
+  courseService.patch(tempcourse);
   for (const c of list) {
     star: c.star = Math.round(averageRating);
   }
@@ -39,11 +47,14 @@ router.get('/byCat/:id', async function (req, res) {
   res.render('vwCategories/viewCourseByCat', {
     course: list,
     empty: list.length === 0,
-    pageNumbers
+    pageNumbers,
+    id,
+    isSort,
+    sort
   });
 });
 
- 
+
 // wishlist by id user
 router.get('/:id', async function (req, res) {
   const id = req.params.id || 0;

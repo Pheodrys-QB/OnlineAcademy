@@ -191,6 +191,7 @@ router.get("/detail/:id/enroll", async function (req, res) {
       sale = +course.DISCOUNT;
     realPrice = price - (price * sale) / 100;
   }
+  console.log(realPrice)
 
   //display feebback
   const usercourse = await userCourseModel.findAllbyCourseID(course.ID_COURSE);
@@ -255,11 +256,12 @@ router.get("/detail/:id/enroll", async function (req, res) {
     ID_USER: req.session.authUser.ID_USER,
 
     RATE: 0,
-    SALE_PRICE: course.PRICE,
+    SALE_PRICE: realPrice,
     FEEDBACK: null,
     DONE: 0,
   };
   await userCourseModel.insert(newUserCourse);
+  console.log(newUserCourse)
   isBought = true;
 
   res.render("vwCourse/detail", {
@@ -452,7 +454,7 @@ router.post("/detail/:id/create_vnpay", async function (req, res) {
   //calculate discount price
   let realPrice = 0;
   let isDiscount = true;
-  if (course.DISCOUNT === 0) {
+  if (course.DISCOUNT == 0) {
     realPrice = course.PRICE;
     isDiscount = false;
   } else {
@@ -460,7 +462,7 @@ router.post("/detail/:id/create_vnpay", async function (req, res) {
       sale = +course.DISCOUNT;
     realPrice = price - (price * sale) / 100;
   }
-
+console.log(realPrice);
   if (isLogin) {
     let date = new Date();
     let createDate = moment(date).format("YYYYMMDDHHmmss");

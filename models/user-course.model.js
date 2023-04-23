@@ -27,6 +27,15 @@ export default{
         const list =  await db('user_course')
         return list[list.length -1];
     },
+    async findPriceEnrollCourse(idCourse){
+        let salePrice = 0
+        const list =  await db('user_course').where('ID_COURSE',idCourse);
+        for (let i=0;i<list.length;i++){
+            salePrice+=list[i].SALE_PRICE
+        }
+
+        return salePrice
+    }
 
 
 }

@@ -47,6 +47,7 @@ export default {
     return db("course").limit(limit).offset(offset);
   },
   patch(course) {
+    // course={id,RATE: 4.2}
     let id = course.id;
     delete course.id;
     return db("course").where("ID_COURSE", id).update(course);

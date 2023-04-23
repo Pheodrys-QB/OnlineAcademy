@@ -270,9 +270,9 @@
                                                         <div class="card-text text-muted">{{instructor.FULLNAME}}</div>
                                                         <div>{{courseRate}} {{renderStars courseRate}}
                                                             ({{course.RATENUM}})</div>
-                                                        <span class="card-title text-danger">
+                                                        <h5 class="card-title text-danger">
                                                             {{format_number course.PRICE}} VND
-                                                        </span>
+                                                        </h5>
                                                         {{#if course.DISCOUNT}}
                                                             <span class="text-muted"
                                                                 style="font-size: smaller"><del>{{format_number this.course.PRICE}}VND</del></span>
@@ -335,13 +335,14 @@
                                                         <div class="card-text text-muted">{{instructor.FULLNAME}}</div>
                                                         <div>{{courseRate}} {{renderStars courseRate}}
                                                             ({{course.RATENUM}})</div>
-                                                        <span class="card-title text-danger">
+                                                        <h5 class="card-title text-danger">
                                                             {{format_number course.PRICE}} VND
-                                                        </span>
+                                                        </h5>
                                                         {{#if course.DISCOUNT}}
-                                                            <span class="text-muted">
-                                                                <del>{{format_number this.course.PRICE}}VND</del><span6>
+                                                            <h6 class="text-muted">
+                                                                <del>{{format_number this.course.PRICE}}VND</del></h6>
                                                         {{/if}}
+
 
                                                         {{#if bestSeller}}
                                                             <span

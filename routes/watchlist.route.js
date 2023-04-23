@@ -14,32 +14,35 @@ router.get("/", async function (req, res) {
     for (let item of myCourses) {
       //get information of instructor and course to show in quick view
       let course = await courseModel.findbyID(item.ID_COURSE);
-      let instructor = await userModel.findbyID(course.ID_USER);
+       if(course != null){
+         let instructor = await userModel.findbyID(course.ID_USER);
 
-      //calculate discount price
-      let realPrice = 0;
-      let isDiscount = true;
-      let isFinish = true;
-      if (item.DONE === 0) {
-        isFinish = false;
-      }
-      if (course.DISCOUNT === 0) {
-        realPrice = course.PRICE;
-        isDiscount = false;
-      } else {
-        let price = +course.PRICE,
-          sale = +course.DISCOUNT;
-        realPrice = price - (price * sale) / 100;
-      }
+         //calculate discount price
+         let realPrice = 0;
+         let isDiscount = true;
+         let isFinish = true;
+         if (item.DONE === 0) {
+           isFinish = false;
+         }
+         if (course.DISCOUNT === 0) {
+           realPrice = course.PRICE;
+           isDiscount = false;
+         } else {
+           let price = +course.PRICE,
+               sale = +course.DISCOUNT;
+           realPrice = price - (price * sale) / 100;
+         }
 
-      items.push({
-        course,
-        instructor,
-        realPrice,
-        isDiscount,
-        isFinish,
-      });
-    }
+         items.push({
+           course,
+           instructor,
+           realPrice,
+           isDiscount,
+           isFinish,
+         });
+       }
+       }
+
   }
 
   res.render("vwCourse/mycourse", {
