@@ -480,12 +480,13 @@ router.post("/detail/:id/create_vnpay", async function (req, res) {
     let tmnCode = "BHMKE9J4";
     let secretKey = "LDFNIVOKMOBTIDFVMBJTXXVMHETHVDIV";
     let vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    let returnUrl = "http://localhost:3000//category/course/vnpay_return";
+    let returnUrl = "http://localhost:3000/category/course/vnpay_return";
     let orderId = moment(date).format("DDHHmmss");
     let amount = realPrice;
   
     let locale = "vn";
-   
+
+
     let currCode = "VND";
     let vnp_Params = {};
     vnp_Params["vnp_Version"] = "2.1.0";
@@ -534,7 +535,7 @@ router.get('/vnpay_return', function (req, res, next) {
   if(secureHash === signed){
       //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
 
-      res.redirect("/categry/course/detail/" + orderCourse + "/enroll");
+      res.redirect("/category/course/detail/" + orderCourse + "/enroll");
   } else{
     res.redirect("/category/course/detail" + orderCourse);
   }

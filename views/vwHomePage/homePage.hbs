@@ -129,10 +129,12 @@
 
                                 {{else}}
                                     <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
-                                    <li><a class="dropdown-item" href="/account/watchlist">Watchlist</a></li>
+                                    <li><a class="dropdown-item" href="/account/watchlist">Enroll</a></li>
+                                    <li><a class="dropdown-item" href="/account/wishlist">Wishlist</a></li>
 
                                     {{#if_equal authUser.TYPE 2}}
                                         <li><a class="dropdown-item" href="/account/mycourse">My Course</a></li>
+
                                     {{/if_equal}}
 
                                     <form id="frmLogout" action="/account/logout" method="post"></form>
