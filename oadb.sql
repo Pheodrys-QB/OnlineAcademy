@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 10, 2023 at 03:49 AM
--- Server version: 5.7.36
--- PHP Version: 7.4.26
+-- Generation Time: Apr 23, 2023 at 02:58 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `ID_CATE` int(11) NOT NULL AUTO_INCREMENT,
-  `CATENAME` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ID_FIELD` int(11) DEFAULT NULL,
+  `ID_CATE` int NOT NULL AUTO_INCREMENT,
+  `CATENAME` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ID_FIELD` int DEFAULT NULL,
   PRIMARY KEY (`ID_CATE`),
   KEY `category___fk` (`ID_FIELD`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `category`
@@ -66,12 +66,12 @@ INSERT INTO `category` (`ID_CATE`, `CATENAME`, `ID_FIELD`) VALUES
 
 DROP TABLE IF EXISTS `chapter`;
 CREATE TABLE IF NOT EXISTS `chapter` (
-  `ID_CHAPTER` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_COURSE` int(11) DEFAULT NULL,
-  `CHAPTERNAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ID_CHAPTER` int NOT NULL AUTO_INCREMENT,
+  `ID_COURSE` int DEFAULT NULL,
+  `CHAPTERNAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID_CHAPTER`),
   KEY `FK_RELATIONSHIP_14` (`ID_COURSE`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `chapter`
@@ -135,25 +135,25 @@ INSERT INTO `chapter` (`ID_CHAPTER`, `ID_COURSE`, `CHAPTERNAME`) VALUES
 
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE IF NOT EXISTS `course` (
-  `ID_COURSE` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_CATE` int(11) DEFAULT NULL,
-  `ID_USER` int(11) DEFAULT NULL,
-  `COURSENAME` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `LENGTHS` int(11) DEFAULT NULL,
+  `ID_COURSE` int NOT NULL AUTO_INCREMENT,
+  `ID_CATE` int DEFAULT NULL,
+  `ID_USER` int DEFAULT NULL,
+  `COURSENAME` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `LENGTHS` int DEFAULT NULL,
   `CREATEDATE` date DEFAULT NULL,
   `LASTUPDATE` date DEFAULT NULL,
   `PRICE` float DEFAULT NULL,
-  `VIEWED` int(11) DEFAULT NULL,
-  `DESCRIPTIONS` varchar(1500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VIEWED` int DEFAULT NULL,
+  `DESCRIPTIONS` varchar(1500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `DISCOUNT` float DEFAULT NULL,
-  `SHORTDES` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `RATENUM` int(11) DEFAULT NULL,
-  `STUNUM` int(11) DEFAULT NULL,
-  `DISABLE` int(11) DEFAULT NULL,
+  `SHORTDES` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `RATENUM` int DEFAULT NULL,
+  `STUNUM` int DEFAULT NULL,
+  `DISABLE` int DEFAULT NULL,
   PRIMARY KEY (`ID_COURSE`),
   KEY `FK_RELATIONSHIP_4` (`ID_CATE`),
   KEY `FK_RELATIONSHIP_7` (`ID_USER`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `course`
@@ -234,10 +234,10 @@ INSERT INTO `course` (`ID_COURSE`, `ID_CATE`, `ID_USER`, `COURSENAME`, `LENGTHS`
 
 DROP TABLE IF EXISTS `field`;
 CREATE TABLE IF NOT EXISTS `field` (
-  `ID_FIELD` int(11) NOT NULL AUTO_INCREMENT,
-  `FIELDNAME` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ID_FIELD` int NOT NULL AUTO_INCREMENT,
+  `FIELDNAME` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID_FIELD`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `field`
@@ -259,13 +259,13 @@ INSERT INTO `field` (`ID_FIELD`, `FIELDNAME`) VALUES
 
 DROP TABLE IF EXISTS `lesson`;
 CREATE TABLE IF NOT EXISTS `lesson` (
-  `ID_LESSON` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_CHAPTER` int(11) DEFAULT NULL,
-  `LESSONNAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `URL` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ID_LESSON` int NOT NULL AUTO_INCREMENT,
+  `ID_CHAPTER` int DEFAULT NULL,
+  `LESSONNAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `URL` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID_LESSON`),
   KEY `FK_RELATIONSHIP_15` (`ID_CHAPTER`)
-) ENGINE=MyISAM AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `lesson`
@@ -385,12 +385,12 @@ INSERT INTO `lesson` (`ID_LESSON`, `ID_CHAPTER`, `LESSONNAME`, `URL`) VALUES
 
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `sid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `sess` text COLLATE utf8_unicode_ci NOT NULL,
+  `sid` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `sess` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `expired` datetime NOT NULL,
   PRIMARY KEY (`sid`),
   KEY `sessions_expired_index` (`expired`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `sessions`
@@ -410,16 +410,16 @@ INSERT INTO `sessions` (`sid`, `sess`, `expired`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `ID_USER` int(11) NOT NULL AUTO_INCREMENT,
-  `USERNAME` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `EMAIL` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PASSWORD` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `TYPE` int(11) DEFAULT NULL,
-  `FULLNAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PROFILE` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `DISABLE` int(11) DEFAULT NULL,
+  `ID_USER` int NOT NULL AUTO_INCREMENT,
+  `USERNAME` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `EMAIL` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `PASSWORD` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `TYPE` int DEFAULT NULL,
+  `FULLNAME` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `PROFILE` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `DISABLE` int DEFAULT NULL,
   PRIMARY KEY (`ID_USER`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -462,55 +462,56 @@ INSERT INTO `users` (`ID_USER`, `USERNAME`, `EMAIL`, `PASSWORD`, `TYPE`, `FULLNA
 
 DROP TABLE IF EXISTS `user_course`;
 CREATE TABLE IF NOT EXISTS `user_course` (
-  `ID_USER_COURSE` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_COURSE` int(11) DEFAULT NULL,
-  `ID_USER` int(11) DEFAULT NULL,
-  `RATE` int(11) DEFAULT NULL,
-  `FEEDBACK` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ID_USER_COURSE` int NOT NULL AUTO_INCREMENT,
+  `ID_COURSE` int DEFAULT NULL,
+  `ID_USER` int DEFAULT NULL,
+  `RATE` int DEFAULT NULL,
+  `FEEDBACK` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `SALE_PRICE` float DEFAULT '0',
   `DONE` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`ID_USER_COURSE`),
   KEY `FK_RELATIONSHIP_8` (`ID_USER`),
   KEY `FK_RELATIONSHIP_9` (`ID_COURSE`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `user_course`
 --
 
-INSERT INTO `user_course` (`ID_USER_COURSE`, `ID_COURSE`, `ID_USER`, `RATE`, `FEEDBACK`, `DONE`) VALUES
-(1, 1, 4, 4, 'good', 0),
-(2, 1, 5, 5, 'my best course!', 1),
-(3, 1, 6, 4, 'how wonderful it is', 1),
-(4, 1, 7, 5, 'this course literally has all the stuff i need, lol', 0),
-(5, 2, 4, 3, 'quite terrible', 0),
-(6, 2, 5, 4, ':))', 0),
-(7, 2, 6, 3, 'wow :(', 1),
-(8, 7, 8, 4, 'love it', 0),
-(9, 7, 4, 5, 'nice :)', 1),
-(10, 3, 3, 4, 'Excellent introduction to the topics. There are very minor attribute errors for updated modules, but that gives the student an excellent opportunity to search for solutions on StackOverflow or other websites.', 1),
-(11, 3, 4, 4, 'This is an absolutely great introduction to Pandas and many of the powerful functions it has.', 0),
-(12, 3, 5, 5, 'The Instructors Expertise is no question. The course was Good but it could be better if it does have more exercises and quiz.', 1),
-(13, 4, 5, 4, 'I would like to thanks to our teacher first i bought this course for my final project on last year of university.', 1),
-(14, 4, 6, 3, 'hihi', 0),
-(15, 5, 3, 4, 'Very great course! Learned a lot and it was explained very clearly. With some more in depth exercises added, this course can go above 4 stars in my opinion.', 1),
-(16, 5, 8, 4, 'Great course to learn the ropes (which I did and thank you for that, Boris!) but I\'d like the course to offer more coding exercises with increasing difficulty.', 0),
-(17, 6, 7, 5, 'The course is very clear, even fo non english speakers. Everything is explained in a easy way, what gives a strong understanding of basics of the topic a solid base to further work with pandas.', 1),
-(18, 6, 6, 4, 'Highly recommended for those wanting to learn python data analytics without any coding background.', 0),
-(19, 8, 3, 5, 'Extraordinary!!! Actually, this course went far beyond what I expected.', 1),
-(20, 8, 4, 4, 'It‘s really a fun course. Development of a real application from the beginning with installing the environment and step by step enhancing the code.', 1),
-(21, 9, 5, 4, 'This is a long one... but yep, a lot of ground was covered. I was mostly interested in unit testing part for Vue. Got what I was looking for and more :) Thanks Boris! I enjoyed this course!', 0),
-(22, 9, 6, 5, 'So far, it\'s beyond what I expected unlike most tutorials, this is explicit, and the way the instructor reuses the terms like props', 1),
-(23, 10, 7, 4, 'a lot of tests. I wanted to watch about vue, not about tests', 0),
-(24, 10, 8, 5, 'This is a great and comprehensive course, in which the workings of Vue (and many topics related to coding with Vue) are explained clearly and in great detail.', 1),
-(25, 1, 12, NULL, NULL, 0),
-(26, 1, 12, NULL, NULL, 0),
-(27, 1, 1, NULL, NULL, 0),
-(28, 1, 25, 2, 'aaa', 0),
-(29, 1, 24, NULL, NULL, 0),
-(30, 16, 26, NULL, NULL, 0),
-(31, 5, 24, NULL, NULL, 0),
-(32, 66, 26, 3, 'good enoguh', 0),
-(33, 66, 26, NULL, NULL, 0);
+INSERT INTO `user_course` (`ID_USER_COURSE`, `ID_COURSE`, `ID_USER`, `RATE`, `FEEDBACK`, `SALE_PRICE`, `DONE`) VALUES
+(1, 1, 4, 4, 'good', 0, 0),
+(2, 1, 5, 5, 'my best course!', 0, 1),
+(3, 1, 6, 4, 'how wonderful it is', 0, 1),
+(4, 1, 7, 5, 'this course literally has all the stuff i need, lol', 0, 0),
+(5, 2, 4, 3, 'quite terrible', 0, 0),
+(6, 2, 5, 4, ':))', 0, 0),
+(7, 2, 6, 3, 'wow :(', 0, 1),
+(8, 7, 8, 4, 'love it', 0, 0),
+(9, 7, 4, 5, 'nice :)', 0, 1),
+(10, 3, 3, 4, 'Excellent introduction to the topics. There are very minor attribute errors for updated modules, but that gives the student an excellent opportunity to search for solutions on StackOverflow or other websites.', 0, 1),
+(11, 3, 4, 4, 'This is an absolutely great introduction to Pandas and many of the powerful functions it has.', 0, 0),
+(12, 3, 5, 5, 'The Instructors Expertise is no question. The course was Good but it could be better if it does have more exercises and quiz.', 0, 1),
+(13, 4, 5, 4, 'I would like to thanks to our teacher first i bought this course for my final project on last year of university.', 0, 1),
+(14, 4, 6, 3, 'hihi', 0, 0),
+(15, 5, 3, 4, 'Very great course! Learned a lot and it was explained very clearly. With some more in depth exercises added, this course can go above 4 stars in my opinion.', 0, 1),
+(16, 5, 8, 4, 'Great course to learn the ropes (which I did and thank you for that, Boris!) but I\'d like the course to offer more coding exercises with increasing difficulty.', 0, 0),
+(17, 6, 7, 5, 'The course is very clear, even fo non english speakers. Everything is explained in a easy way, what gives a strong understanding of basics of the topic a solid base to further work with pandas.', 0, 1),
+(18, 6, 6, 4, 'Highly recommended for those wanting to learn python data analytics without any coding background.', 0, 0),
+(19, 8, 3, 5, 'Extraordinary!!! Actually, this course went far beyond what I expected.', 0, 1),
+(20, 8, 4, 4, 'It‘s really a fun course. Development of a real application from the beginning with installing the environment and step by step enhancing the code.', 0, 1),
+(21, 9, 5, 4, 'This is a long one... but yep, a lot of ground was covered. I was mostly interested in unit testing part for Vue. Got what I was looking for and more :) Thanks Boris! I enjoyed this course!', 0, 0),
+(22, 9, 6, 5, 'So far, it\'s beyond what I expected unlike most tutorials, this is explicit, and the way the instructor reuses the terms like props', 0, 1),
+(23, 10, 7, 4, 'a lot of tests. I wanted to watch about vue, not about tests', 0, 0),
+(24, 10, 8, 5, 'This is a great and comprehensive course, in which the workings of Vue (and many topics related to coding with Vue) are explained clearly and in great detail.', 0, 1),
+(25, 1, 12, NULL, NULL, 0, 0),
+(26, 1, 12, NULL, NULL, 0, 0),
+(27, 1, 1, NULL, NULL, 0, 0),
+(28, 1, 25, 2, 'aaa', 0, 0),
+(29, 1, 24, NULL, NULL, 0, 0),
+(30, 16, 26, NULL, NULL, 0, 0),
+(31, 5, 24, NULL, NULL, 0, 0),
+(32, 66, 26, 3, 'good enoguh', 0, 0),
+(33, 66, 26, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -520,13 +521,13 @@ INSERT INTO `user_course` (`ID_USER_COURSE`, `ID_COURSE`, `ID_USER`, `RATE`, `FE
 
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE IF NOT EXISTS `wishlist` (
-  `ID_WISHLIST` int(11) NOT NULL AUTO_INCREMENT,
-  `ID_USER` int(11) DEFAULT NULL,
-  `ID_COURSE` int(11) DEFAULT NULL,
+  `ID_WISHLIST` int NOT NULL AUTO_INCREMENT,
+  `ID_USER` int DEFAULT NULL,
+  `ID_COURSE` int DEFAULT NULL,
   PRIMARY KEY (`ID_WISHLIST`),
   KEY `FK_RELATIONSHIP_5` (`ID_USER`),
   KEY `FK_RELATIONSHIP_6` (`ID_COURSE`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `wishlist`
