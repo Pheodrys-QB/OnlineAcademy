@@ -41,22 +41,14 @@
 
 
 <div class="container">
-    <div class="d-flex flex-column align-items-end search-result-header mt-4 ml-5 mb-3">
-        <div class="search-result-header-sort mt-4 ml-5">
-            <select class="form-control" id="filter" style="width: auto;">
-                <option>Sort By</option>
-                <option>Star rating</option>
-                <option>Price ascending</option>
-            </select>
-        </div>
-    </div>
+
     <div id="content">
         {{#each this.courseList}}
             <div class="row w-100 h-100 mt-3 mb-5" data-id={{course.ID_COURSE}}>
                 <div class="col-sm h-100"><img
                         src="/public/imgs/courses/{{course.ID_COURSE}}_thumbnail.png" alt="Image"
                         class="img-thumbnail"></div>
-                <div class="col-xl-6 h-100">
+                <div class="col-xl-7 h-100">
                     <a href="#">
                         <h5 class="card-title">{{course.COURSENAME}}</h5>
                     </a>
@@ -76,10 +68,7 @@
                 <div class="col-lg-2" id="to">
                     <h5 class="card-title shadow-sm text-warning text-right align-text-bottom">
                         {{format_number realPrice}} VND</h5>
-                    {{#if course.DISCOUNT}}
-                        <h6 class="text-muted text-right align-text-bottom"><del>{{format_number this.course.PRICE}}
-                                VND</del></h6>
-                    {{/if}}
+                   
                     <div id="active">
                         {{#if course.DISABLE}}
                             <a

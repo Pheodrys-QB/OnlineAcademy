@@ -110,7 +110,7 @@ router.post('/logout', async function (req, res) {
 
   
     const url = req.headers.referer || '/';
-    res.redirect(url);
+    res.redirect("/");
 });
 
 

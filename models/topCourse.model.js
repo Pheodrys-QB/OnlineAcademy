@@ -20,7 +20,7 @@ export default{
         lists.push(list[1])
         lists.push(list[2])
         lists.push(list[3])
-        lists.push(list[4])
+
 
         return lists;
 

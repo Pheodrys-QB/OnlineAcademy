@@ -124,7 +124,7 @@
 
         </div>
 
-        <ul class="navbar-nav " style="width: 250px, float: right">
+        <ul class="navbar-nav " style="width: 250px; float: right">
           {{#if auth}}
             <li class="nav-item dropdown pt-1">
               <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
@@ -138,10 +138,12 @@
 
                  {{else}}
             <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
-            <li><a class="dropdown-item" href="/account/watchlist">Watchlist</a></li>
+                    <li><a class="dropdown-item" href="/account/watchlist">Enroll</a></li>
+                    <li><a class="dropdown-item" href="/account/wishlist">Wishlist</a></li>
 
                     {{#if_equal authUser.TYPE 2}}
               <li><a class="dropdown-item" href="/account/mycourse">My Course</a></li>
+
                     {{/if_equal}}
 
             <form id="frmLogout" action="/account/logout" method="post"></form>

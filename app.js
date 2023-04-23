@@ -25,6 +25,7 @@ import LearningPageModel from './services/LearningPage.model.js';
 import categoryRoute from './routes/categories.route.js';
 import searchRoute from './routes/search.route.js';
 import watchlistRoute from './routes/watchlist.route.js';
+import wishlistRoute from './routes/wishlist.route.js'
 
 import db from "./utils/db.js";
 
@@ -383,14 +384,14 @@ app.get("/course/create", auth ,async function (req, res) {
   let temp ={
     ID_CATE: 1,
     ID_USER: user.ID_USER,
-    COURSENAME: "null",
+    COURSENAME: "",
     LENGTHS: 0,
     CREATEDATE: moment().format("YYYY-MM-DD"),
     LASTUPDATE: moment().format("YYYY-MM-DD"),
     PRICE: 0,
     VIEWED: 0,
     DESCRIPTIONS: "data.FullDes",
-    DISCOUNT: 10,
+    DISCOUNT: 0,
     SHORTDES: "data.ShortDes",
     RATENUM: 0,
     STUNUM: 0,
@@ -461,7 +462,7 @@ app.post("/course/create", async function (req, res) {
           PRICE: +data.Price,
           VIEWED: 0,
           DESCRIPTIONS: data.FullDes,
-          DISCOUNT: 10,
+          DISCOUNT: +data.Discount,
           SHORTDES: data.ShortDes,
           RATENUM: 0,
           STUNUM: 0,
@@ -598,6 +599,7 @@ app.use("/admin", adminRoute);
 
 app.use("/category/course", courseUserRoute);
 app.use('/account/watchlist', watchlistRoute);
+app.use('/account/wishlist',wishlistRoute)
 app.use("/account/mycourse", myCourseRoute);
 app.use('/categories', categoryRoute);
 app.use('/search', searchRoute);
