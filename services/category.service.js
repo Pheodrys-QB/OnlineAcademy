@@ -13,8 +13,8 @@ export default {
 
     return list[0];
   },
-  
-   async findAllByFieldId(id) {
+
+  async findAllByFieldId(id) {
     const list = await db('category').where('ID_FIELD', id);
     if (list.length === 0)
       return null;
@@ -45,16 +45,29 @@ export default {
   //count all course by category name
   async countByCatId(catId) {
     const total = await db('course')
-      .where('ID_CATE', catId)
-      .count('ID_CATE as total');
+        .where('ID_CATE', catId)
+        .count('ID_CATE as total');
     return total[0].total;
   },
   // find page by category name
-  async findPageByCatId(catId, limit, offset) {
+  async findPageByCatId(catId, limit, offset, sortType) {
+    if(sortType == 1){
+      const rows = await db('course')
+          .where('ID_CATE', catId).orderBy('RATE', 'DESC')
+          .limit(limit)
+          .offset(offset);
+      return rows;
+    }else if(sortType == 2){
+      const rows = await db('course')
+          .where('ID_CATE', catId).orderBy('PRICE', 'ASC')
+          .limit(limit)
+          .offset(offset);
+      return rows;
+    }
     const rows = await db('course')
-      .where('ID_CATE', catId)
-      .limit(limit)
-      .offset(offset);
+        .where('ID_CATE', catId)
+        .limit(limit)
+        .offset(offset);
     return rows;
   } ,
   // average rating by
@@ -65,16 +78,16 @@ export default {
     }
     return null;
   },
-  
+
   // get type of user
   async getCourseFromUser(id) {
     const list = await db('users').where('ID_USER', id);
     if (list.length === 0) {
-        return null;
+      return null;
     }
 
     return list[0];
-},
+  },
   // get all course by id
   async single(id) {
     const rows = await db('course').where('ID_COURSE', id).where('DISABLE',0);
@@ -86,15 +99,15 @@ export default {
   // full text search name course have keyword
   async searchCourses(keyword) {
     const courses = await db.raw(
-      `SELECT * FROM course WHERE MATCH(COURSENAME) AGAINST (? IN NATURAL LANGUAGE MODE)`,
-      [keyword]
+        `SELECT * FROM course WHERE MATCH(COURSENAME) AGAINST (? IN NATURAL LANGUAGE MODE)`,
+        [keyword]
     );
     return courses;
   },
   // full text search course by involve category name
   async searchCoursesByCat(keyword) {
     const courses = await db.raw(
-      `SELECT * FROM courses WHERE category LIKE '%${keyword}%'`
+        `SELECT * FROM courses WHERE category LIKE '%${keyword}%'`
     );
     return courses;
   },

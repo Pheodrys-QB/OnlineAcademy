@@ -5,9 +5,12 @@ import courseService from "../services/course.service.js"
 const router = express.Router();
 router.get('/byCat/:id', async function (req, res) {
   const id = req.params.id || 0;
-  const sort = req.params.sort || 0;
+  const sort = +req.query.sort || 0;
+  console.log("logging " + sort)
   let isSort = false;
   if(sort != 0) isSort = true;
+  console.log("logging " + sort)
+  console.log(isSort);
   const categories = await categoriesService.allByCat();
   res.locals.lcCategories = categories;
 
@@ -32,7 +35,7 @@ router.get('/byCat/:id', async function (req, res) {
     });
   }
 
-  const list = await categoriesService.findPageByCatId(id, limit, offset);
+  const list = await categoriesService.findPageByCatId(id, limit, offset, sort);
   // average rating
   const averageRating = await categoriesService.getAvgRate(id);
   let tempcourse = {
@@ -43,7 +46,7 @@ router.get('/byCat/:id', async function (req, res) {
   for (const c of list) {
     star: c.star = Math.round(averageRating);
   }
-  
+
   res.render('vwCategories/viewCourseByCat', {
     course: list,
     empty: list.length === 0,
