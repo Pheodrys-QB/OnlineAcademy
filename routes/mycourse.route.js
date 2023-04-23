@@ -1,6 +1,7 @@
 import userCourseModel from "../models/user-course.model.js";
 import userModel from "../models/user.model.js";
 import courseModel from "../models/course.model.js";
+import usercourseModel from "../models/user-course.model.js"
 
 import express from "express";
 const router = express.Router();
@@ -15,11 +16,16 @@ let isInstructor = false;
   }
 
   // myCourses = await userCourseModel.findAllbyUserID(1);
+  let salePrice =0
   if (myCourses != null) {
+
     for (let item of myCourses) {
       //get information of instructor and course to show in quick view
       let course = await courseModel.findbyID(item.ID_COURSE);
+      salePrice = await usercourseModel.findPriceEnrollCourse(item.ID_COURSE)
       let instructor = await userModel.findbyID(course.ID_USER);
+
+
 
       //calculate discount price
       let realPrice = 0;
@@ -36,6 +42,7 @@ let isInstructor = false;
           sale = +course.DISCOUNT;
         realPrice = price - (price * sale) / 100;
       }
+      salePrice = salePrice*0.8
 
       items.push({
         course,
@@ -43,6 +50,7 @@ let isInstructor = false;
         realPrice,
         isDiscount,
         isFinish,
+        salePrice,
       });
     }
   }
