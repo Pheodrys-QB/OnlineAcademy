@@ -244,7 +244,7 @@
                                                         <div>{{courseRate}} {{renderStars courseRate}}
                                                             ({{course.RATENUM}})</div>
                                                         <h5 class="card-title text-danger">
-                                                            {{format_number course.PRICE}} VND
+                                                            {{format_number realPrice}} VND
                                                         </h5>
                                                         {{#if course.DISCOUNT}}
                                                             <span class="text-muted"
@@ -308,13 +308,17 @@
                                                         <div class="card-text text-muted">{{instructor.FULLNAME}}</div>
                                                         <div>{{courseRate}} {{renderStars courseRate}}
                                                             ({{course.RATENUM}})</div>
-                                                        <h5 class="card-title text-danger">
-                                                            {{format_number course.PRICE}} VND
-                                                        </h5>
-                                                        {{#if course.DISCOUNT}}
+                                                        {{#if isDiscount}}
+                                                            <h5 class="card-title text-danger">
+                                                                {{format_number realPrice}} VND
+                                                            </h5>
                                                             <h6 class="text-muted">
                                                                 <del>{{format_number this.course.PRICE}}VND</del></h6>
+                                                        {{else}}
+                                                            <h5 class="card-title text-danger">
+                                                                {{format_number this.course.PRICE}}VND</h5>
                                                         {{/if}}
+
 
                                                         {{#if bestSeller}}
                                                             <span

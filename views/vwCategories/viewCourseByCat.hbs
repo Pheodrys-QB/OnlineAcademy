@@ -23,9 +23,9 @@
 
             <div class="search-result-header-sort mt-4 ml-5">
               <select class="form-control" id="filter" style ="width: auto;">
-                <option>Sort By</option>
-                <option>Star rating</option>
-                <option>Price ascending</option>
+                  <option><a href="/categories/byCat/{{this.id}}">No sorting</a></option>
+                <option><a href="/categories/byCat/{{this.id}}?sort=1">Star rating</a></option>
+                  <option><a href="/categories/byCat/{{this.id}}?sort=2">Price ascending</a></option>
               </select>
             </div>
     </div>
@@ -59,11 +59,13 @@
                 </div>
               </div>
               <div class="price d-flex flex-column align-items-center justify-content-center ml-5">
-                <div class="price"><h3>{{format_number PRICE}}</h3></div>
-                <div class="discount"><h4>
+
+                <div class="text-muted"><h4>
                   {{#if_equal this.DISCOUNT 0}}
+                      <div class=" text-danger"><h3>{{format_number PRICE}}</h3> VND</div>
                   {{else}}
-                  {{mul PRICE DISCOUNT}}
+                  <div class=" text-danger"><h3>{{format_number2 PRICE DISCOUNT}}</h3>VND</div>
+                  <del>{{format_number PRICE}}VND</del>
                   {{/if_equal}}
                 </h4></div>
               </div>
@@ -84,7 +86,7 @@
           </li>
           {{else}}
           <li class="page-item">
-            <a class="page-link" href="?page={{value}}">{{value}}</a>
+            <a class="page-link" href="?page={{value}}{{#if isSort}}&sort={{sort}}{{/if}}">{{value}}</a>
           </li>
           {{/if}}
         {{/each}}

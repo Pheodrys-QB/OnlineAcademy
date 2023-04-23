@@ -4,7 +4,7 @@ const knex = knexObj({
   client: 'mysql2',
   connection: {
     host: 'localhost',
-    port: 3306,
+    port: 3307,
     user: 'root',
     password: '',
     database: 'oadb'
