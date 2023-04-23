@@ -260,7 +260,8 @@ router.get("/detail/:id/enroll", async function (req, res) {
     ID_COURSE: course.ID_COURSE,
     ID_USER: req.session.authUser.ID_USER,
 
-    RATE: null,
+    RATE: 0,
+    SALE_PRICE: course.PRICE;
     FEEDBACK: null,
     DONE: 0,
   };
