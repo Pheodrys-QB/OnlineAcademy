@@ -83,7 +83,9 @@
             height: 35%;
         }
         
-
+        div.col-sm-4.mb-3{
+            background: white
+        }
         
     </style>
 </head>
@@ -254,13 +256,13 @@
                 </div>
                 <div class="card w-100 d-flex justify-content-center">
                     <div class="card-header">Top 10 lists of the most popular courses</div>
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-12" >
                             <div class="carousel slide multi-item-carousel" id="theCarousel">
                                 <div class="carousel-inner" >
                                     {{#each this.top10}}
-                                        <div class="item {{#if @first }}active {{/if}}">
-                                            <div class="col-sm-4 mb-3" >
+                                        <div class="item {{#if @first }}active {{/if}}" >
+                                            <div class="col-sm-4 mb-3" style="background:white" >
                                                 <div class="card" style="height:450px;">
                                                     <img class="card-img-top"
                                                         src="./public/imgs/courses/{{course.ID_COURSE}}_thumbnail.png"
@@ -308,15 +310,15 @@
                                         </div>
                                     {{/each}}
                                 </div>
-                                <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i
+                                <a class="left carousel-control" href="#theCarousel" data-slide="previous"><i
                                         class="glyphicon glyphicon-chevron-left"></i></a>
+                                </a>
                                 <a class="right carousel-control" href="#theCarousel" data-slide="next"><i
                                         class="glyphicon glyphicon-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="card w-100 d-flex justify-content-center" >  
                     <div class="card-header">Latest Course</div>
                     <div class="row">
