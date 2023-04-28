@@ -540,7 +540,7 @@ app.get('/learningPage', async function (req,res){
   }
 
   
-  
+
   let instructor = await LearningPageModel.findInstructorById(course.ID_USER)
  
   return res.render('vwLearningPage/LearningPage',{
@@ -554,7 +554,6 @@ app.post('/directSearch', function(req,res){
   const name = req.body.name;
   return res.redirect('/search/result/' + name);
 })
-
 app.post('/learningPage', async function (req,res){
   const courseid = req.query.id
 
