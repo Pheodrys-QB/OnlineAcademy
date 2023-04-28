@@ -50,7 +50,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="navigation"
     style="position: fixed; z-index: 10; top:0; width: 100%;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/" >Website</a>
+      <a class="navbar-brand" href="/">Website</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05"
         aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -65,56 +65,57 @@
                   aria-expanded="false">Catergories</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdown05">
                   {{#if auth}}
-                    {{#if_equal authUser.TYPE 1}}
-                      {{#each lcField_Categories}}
-                        <li class="dropdown dropend">
-                          <a class="dropdown-item" href="/admin/field/{{field.ID_FIELD}}" id="dropdown06"
-                            data-bs-toggle="dropdown" aria-expanded="false">{{field.FIELDNAME}}</a>
-                          {{#if categories}}
-                            <ul class="dropdown-menu" aria-labelledby="dropdown06">
-                              {{#each categories}}
-                                <li><a class="dropdown-item"
-                                    href="/admin/field/{{../field.ID_FIELD}}/edit?id={{ID_CATE}}">{{CATENAME}}</a></li>
-                              {{/each}}
-                            </ul>
-                          {{/if}}
-                        </li>
+                  {{#if_equal authUser.TYPE 1}}
+                  {{#each lcField_Categories}}
+                  <li class="dropdown dropend">
+                    <a class="dropdown-item" href="/admin/field/{{field.ID_FIELD}}" id="dropdown06"
+                      data-bs-toggle="dropdown" aria-expanded="false">{{field.FIELDNAME}}</a>
+                    {{#if categories}}
+                    <ul class="dropdown-menu" aria-labelledby="dropdown06">
+                      {{#each categories}}
+                      <li><a class="dropdown-item"
+                          href="/admin/field/{{../field.ID_FIELD}}/edit?id={{ID_CATE}}">{{CATENAME}}</a></li>
                       {{/each}}
-                    {{else}}
-                     {{#each lcField_Categories}}
-                      <li class="dropdown dropend">
-                        <a class="dropdown-item" href="#" id="dropdown06" data-bs-toggle="dropdown"
-                          aria-expanded="false">{{field.FIELDNAME}}</a>
-                        {{#if categories}}
-                          <ul class="dropdown-menu" aria-labelledby="dropdown06">
-                            {{#each categories}}
-                              <li><a class="dropdown-item" href="/categories/byCat/{{ID_CATE}}">{{CATENAME}}</a></li>
-                            {{/each}}
-                          </ul>
-                        {{/if}}
-                      </li>
-                    {{/each}}
-                    {{/if_equal}}
+                    </ul>
+                    {{/if}}
+                  </li>
+                  {{/each}}
                   {{else}}
-                    {{#each lcField_Categories}}
-                      <li class="dropdown dropend">
-                        <a class="dropdown-item" href="#" id="dropdown06" data-bs-toggle="dropdown"
-                          aria-expanded="false">{{field.FIELDNAME}}</a>
-                        {{#if categories}}
-                          <ul class="dropdown-menu" aria-labelledby="dropdown06">
-                            {{#each categories}}
-                              <li><a class="dropdown-item" href="/categories/byCat/{{ID_CATE}}">{{CATENAME}}</a></li>
-                            {{/each}}
-                          </ul>
-                        {{/if}}
-                      </li>
-                    {{/each}}
+                  {{#each lcField_Categories}}
+                  <li class="dropdown dropend">
+                    <a class="dropdown-item" href="#" id="dropdown06" data-bs-toggle="dropdown"
+                      aria-expanded="false">{{field.FIELDNAME}}</a>
+                    {{#if categories}}
+                    <ul class="dropdown-menu" aria-labelledby="dropdown06">
+                      {{#each categories}}
+                      <li><a class="dropdown-item" href="/categories/byCat/{{ID_CATE}}">{{CATENAME}}</a></li>
+                      {{/each}}
+                    </ul>
+                    {{/if}}
+                  </li>
+                  {{/each}}
+                  {{/if_equal}}
+                  {{else}}
+                  {{#each lcField_Categories}}
+                  <li class="dropdown dropend">
+                    <a class="dropdown-item" href="#" id="dropdown06" data-bs-toggle="dropdown"
+                      aria-expanded="false">{{field.FIELDNAME}}</a>
+                    {{#if categories}}
+                    <ul class="dropdown-menu" aria-labelledby="dropdown06">
+                      {{#each categories}}
+                      <li><a class="dropdown-item" href="/categories/byCat/{{ID_CATE}}">{{CATENAME}}</a></li>
+                      {{/each}}
+                    </ul>
+                    {{/if}}
+                  </li>
+                  {{/each}}
                   {{/if}}
                 </ul>
               </li>
               <li>
                 <form method="post" action="/directSearch">
-                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="width: 400px" name="name">
+                  <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="width: 400px"
+                    name="name">
                   <input type="submit" hidden>
                 </form>
               </li>
@@ -126,98 +127,98 @@
 
         <ul class="navbar-nav " style="width: 250px; float: right">
           {{#if auth}}
-            <li class="nav-item dropdown pt-1">
-              <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {{authUser.USERNAME}}
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                {{#if_equal authUser.TYPE 1}}
-                  <form id="frmLogout" action="/account/logout" method="post"></form>
-                  <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
+          <li class="nav-item dropdown pt-1">
+            <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{authUser.USERNAME}}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+              {{#if_equal authUser.TYPE 1}}
+              <form id="frmLogout" action="/account/logout" method="post"></form>
+              <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
 
-                 {{else}}
-            <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
-                    <li><a class="dropdown-item" href="/account/watchlist">Enroll</a></li>
-                    <li><a class="dropdown-item" href="/account/wishlist">Wishlist</a></li>
+              {{else}}
+              <li><a class="dropdown-item" href="/account/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/account/watchlist">Enroll</a></li>
+              <li><a class="dropdown-item" href="/account/wishlist">Wishlist</a></li>
 
-                    {{#if_equal authUser.TYPE 2}}
+              {{#if_equal authUser.TYPE 2}}
               <li><a class="dropdown-item" href="/account/mycourse">My Course</a></li>
 
-                    {{/if_equal}}
+              {{/if_equal}}
 
-            <form id="frmLogout" action="/account/logout" method="post"></form>
-            <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
-                {{/if_equal}}
+              <form id="frmLogout" action="/account/logout" method="post"></form>
+              <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
+              {{/if_equal}}
 
-            </li>
+          </li>
         </ul>
         </li>
         {{else}}
-          <li>
-            <a class="btn btn-outline-primary bi bi-filter" href="/account/register" role="button" id="SignupLink">
-              Sign up
-            </a>
-          </li>
-          <li>
-            <p>__</p>
-          </li>
-          <li>
-            <a class="btn btn-outline-primary bi bi-filter" href="/account/login" role="button" id="SignupLink">
-              Login
-            </a>
-          </li>
-          {{/if}}
-          </ul>
+        <li>
+          <a class="btn btn-outline-primary bi bi-filter" href="/account/register" role="button" id="SignupLink">
+            Register
+          </a>
+        </li>
+        <li>
+          <p>__</p>
+        </li>
+        <li>
+          <a class="btn btn-outline-primary bi bi-filter" href="/account/login" role="button" id="SignupLink">
+            Login
+          </a>
+        </li>
+        {{/if}}
+        </ul>
       </div>
     </div>
   </nav>
   {{#if auth}}
-    {{#if_equal authUser.TYPE 1}}
-      <div class="container-fluid" style="margin-top: 60px">
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="card mb-3">
-              <h4 class="card-header">
-                Menu
-              </h4>
-              <div class="list-group list-group-flush">
-                <a href="/admin/manageStudent" onclick="notify(this)" class="list-group-item list-group-item-action">
-                  <i class="fa fa-caret-right" aria-hidden="true"></i>
-                  Students
-                </a>
-                <a href="/admin/manageInstructor" onclick="notify(this)" class="list-group-item list-group-item-action">
-                  <i class="fa fa-caret-right" aria-hidden="true"></i>
-                  Instructors
-                </a>
-                <a href="/admin/field" onclick="notify(this)" class="list-group-item list-group-item-action">
-                  <i class="fa fa-caret-right" aria-hidden="true"></i>
-                  Fields &amp Categorys
-                </a>
-                <a href="/admin/manageCourse" onclick="notify(this)" class="list-group-item list-group-item-action">
-                  <i class="fa fa-caret-right" aria-hidden="true"></i>
-                  Courses
-                </a>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-sm-9">
-            {{{body}}}
+  {{#if_equal authUser.TYPE 1}}
+  <div class="container-fluid" style="margin-top: 60px">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card mb-3">
+          <h4 class="card-header">
+            Menu
+          </h4>
+          <div class="list-group list-group-flush">
+            <a href="/admin/manageStudent" onclick="notify(this)" class="list-group-item list-group-item-action">
+              <i class="fa fa-caret-right" aria-hidden="true"></i>
+              Students
+            </a>
+            <a href="/admin/manageInstructor" onclick="notify(this)" class="list-group-item list-group-item-action">
+              <i class="fa fa-caret-right" aria-hidden="true"></i>
+              Instructors
+            </a>
+            <a href="/admin/field" onclick="notify(this)" class="list-group-item list-group-item-action">
+              <i class="fa fa-caret-right" aria-hidden="true"></i>
+              Fields &amp Categorys
+            </a>
+            <a href="/admin/manageCourse" onclick="notify(this)" class="list-group-item list-group-item-action">
+              <i class="fa fa-caret-right" aria-hidden="true"></i>
+              Courses
+            </a>
           </div>
         </div>
+
       </div>
-  {{else}}
-    <div class="container-fluid d-flex justify-content-center row" style="margin-top: 60px">
-
-      {{{body}}}
+      <div class="col-sm-9">
+        {{{body}}}
+      </div>
     </div>
-    {{/if_equal}}
+  </div>
   {{else}}
-    <div class="container-fluid d-flex justify-content-center row" style="margin-top: 60px">
+  <div class="container-fluid d-flex justify-content-center row" style="margin-top: 60px">
 
-      {{{body}}}
-    </div>
+    {{{body}}}
+  </div>
+  {{/if_equal}}
+  {{else}}
+  <div class="container-fluid d-flex justify-content-center row" style="margin-top: 60px">
+
+    {{{body}}}
+  </div>
   {{/if}}
 
 

@@ -135,8 +135,6 @@ app.use(async function (req, res, next) {
   next();
 });
 
-//save feature
-
 app.post("/lesson/save", async function (req, res) {
   const lesId = req.query.lessonId;
   const storage = multer.diskStorage({
@@ -197,6 +195,8 @@ app.get("/lesson/create", async function (req, res) {
 
   return res.json(num);
 });
+
+//del features
 app.get("/lesson/del", async function (req, res) {
   const lesId = req.query.lessonId;
   console.log(lesId);
