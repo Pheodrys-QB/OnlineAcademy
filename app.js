@@ -554,7 +554,6 @@ app.post('/directSearch', function(req,res){
   const name = req.body.name;
   return res.redirect('/search/result/' + name);
 })
-//pane
 app.post('/learningPage', async function (req,res){
   const courseid = req.query.id
 
