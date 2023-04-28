@@ -195,8 +195,6 @@ app.get("/lesson/create", async function (req, res) {
 
   return res.json(num);
 });
-
-//del features
 app.get("/lesson/del", async function (req, res) {
   const lesId = req.query.lessonId;
   console.log(lesId);
@@ -556,7 +554,7 @@ app.post('/directSearch', function(req,res){
   const name = req.body.name;
   return res.redirect('/search/result/' + name);
 })
-
+//pane
 app.post('/learningPage', async function (req,res){
   const courseid = req.query.id
 
