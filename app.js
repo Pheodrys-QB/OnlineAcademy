@@ -105,8 +105,6 @@ app.use(async function (req, res, next) {
   next();
 });
 
-//test
-
 app.use(async function (req, res, next) {
   let list = [];
 
@@ -136,6 +134,8 @@ app.use(async function (req, res, next) {
 
   next();
 });
+
+//save feature
 
 app.post("/lesson/save", async function (req, res) {
   const lesId = req.query.lessonId;
