@@ -540,7 +540,7 @@ app.get('/learningPage', async function (req,res){
   }
 
   
-  
+
   let instructor = await LearningPageModel.findInstructorById(course.ID_USER)
  
   return res.render('vwLearningPage/LearningPage',{
