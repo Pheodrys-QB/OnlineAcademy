@@ -94,7 +94,7 @@ app.use(
     },
   })
 );
-
+  
 app.use(async function (req, res, next) {
   if (typeof req.session.auth === "undefined") {
     req.session.auth = false;
