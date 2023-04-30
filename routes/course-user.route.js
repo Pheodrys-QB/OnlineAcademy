@@ -83,13 +83,13 @@ router.get("/detail/:id", async function (req, res) {
 
   // display lesson preview
   const chapter = await chapterModel.findbyIDCourse(courseID);
-  let data = null;
+  let data;
   if (chapter != null) {
     let lessonsdata = await lessonModel.findbyIDChapter(chapter[0].ID_CHAPTER);
     if (lessonsdata != null) data = lessonsdata[0];
   }
   //TEST
-  data = { LESSONNAME: "TEST LESSON", ID_LESSON: 43 };
+  //data = { LESSONNAME: "TEST LESSON", ID_LESSON: 43 };
 
   //display rate and ratenum
   let rate = 0;
@@ -209,13 +209,13 @@ router.get("/detail/:id/enroll", async function (req, res) {
 
   // display lesson preview
   const chapter = await chapterModel.findbyIDCourse(courseID);
-  let data = null;
+  let data;
   if (chapter != null) {
     let lessonsdata = await lessonModel.findbyIDChapter(chapter[0].ID_CHAPTER);
     if (lessonsdata != null) data = lessonsdata[0];
   }
   //TEST
-  data = { LESSONNAME: "TEST LESSON", ID_LESSON: 43 };
+  //data = { LESSONNAME: "TEST LESSON", ID_LESSON: 43 };
 
   //display rate and ratenum
   let rate = 0;
