@@ -14,7 +14,7 @@ import querystring from "qs";
 import moment from "moment";
 
 const router = express.Router();
-let orderCourse;
+
 
 router.get("/detail/:id", async function (req, res) {
   let isBought = false;
@@ -449,7 +449,7 @@ router.post("/detail/:id/create_vnpay", async function (req, res) {
     return res.redirect("/");
   }
 
-  orderCourse = courseID;
+  //orderCourse = courseID;
 
   //calculate discount price
   let realPrice = 0;
@@ -490,7 +490,7 @@ console.log(realPrice);
     vnp_Params["vnp_Locale"] = locale;
     vnp_Params["vnp_CurrCode"] = currCode;
     vnp_Params["vnp_TxnRef"] = orderId;
-    vnp_Params["vnp_OrderInfo"] = "Thanh toan cho ma GD:" + orderId;
+    vnp_Params["vnp_OrderInfo"] = courseID;
     vnp_Params["vnp_OrderType"] = "other";
     vnp_Params["vnp_Amount"] = amount * 100;
     vnp_Params["vnp_ReturnUrl"] = returnUrl;
@@ -514,7 +514,7 @@ router.get("/vnpay_return", function (req, res, next) {
   let vnp_Params = req.query;
 
   let secureHash = vnp_Params["vnp_SecureHash"];
-
+  const courseid = parseInt(vnp_Params["vnp_OrderInfo"]);
   delete vnp_Params["vnp_SecureHash"];
   delete vnp_Params["vnp_SecureHashType"];
 
@@ -525,13 +525,13 @@ router.get("/vnpay_return", function (req, res, next) {
   let signData = querystring.stringify(vnp_Params, { encode: false });
   let hmac = crypto.createHmac("sha512", secretKey);
   let signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
-
+  
   if (secureHash === signed) {
     //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
 
-    res.redirect("/category/course/detail/" + orderCourse + "/enroll");
+    res.redirect("/category/course/detail/" + courseid + "/enroll");
   } else {
-    res.redirect("/category/course/detail" + orderCourse);
+    res.redirect("/category/course/detail" + courseid);
   }
 });
 
