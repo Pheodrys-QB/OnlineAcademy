@@ -41,42 +41,37 @@
       </div>
     </div>
   {{else}}
-    {{#each this.course}}
+    {{#each this.list}}
       <div class="d-flex flex-row w-75 mx-auto mt-5">
         <a class="btn d-flex align-items-center justify-content-between p-2" href="/category/course/detail/{{ID_COURSE}}">
           <div class="col-4">
-            <img src="/public/imgs/courses/{{ID_COURSE}}_thumbnail.png" alt="Image" class="img-thumbnail"
+            <img src="/public/imgs/courses/{{course.ID_COURSE}}_thumbnail.png" alt="Image" class="img-thumbnail"
               style="width:600px; height: 200px;">
           </div>
           <div class="main d-flex flex-column text-left pl-4">
             <div class="tittle">
-              <h3>{{COURSENAME}}</h3>
+              <h3>{{course.COURSENAME}}</h3>
             </div>
-            <div class="description">{{SHORTDES}}</div>
+            <div class="description">{{course.SHORTDES}}</div>
             <div class="author">
               {{name}}
             </div>
             <div class="rating d-flex align-items-center">
               <span class="start">
-                {{star}}
-                {{renderStars star}}
+                {{courseRate}}
+                {{renderStars courseRate}}
 
               </span>
-              <span class="number ml-2">({{RATENUM}})</span>
+              <span class="number ml-2">({{course.RATENUM}})</span>
             </div>
           </div>
           <div class="price d-flex flex-column align-items-center justify-content-center ml-5">
-            <div class="price">
-              <h3>{{format_number PRICE}}</h3>
-            </div>
-            <div class="discount">
-              <h4>
-                {{#if_equal this.DISCOUNT 0}}
-    {{else}}
-      {{mul PRICE DISCOUNT}}
-                {{/if_equal}}
-              </h4>
-            </div>
+              {{#if isDiscount}}
+                  <span><h5 class="card-title text-danger">{{format_number realPrice}}VND</h5></span>
+                  <h6 class="text-muted"><del>{{format_number this.course.PRICE}}VND</del></h6>
+              {{else}}
+                 <span><h5 class="card-title text-danger">{{format_number this.course.PRICE}}VND</h5></span>
+              {{/if}}
           </div>
         </a>
       </div>

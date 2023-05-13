@@ -62,9 +62,9 @@
 
                         <div class="text-muted"><h4>
                             {{#if_equal this.DISCOUNT 0}}
-                                <div class="text-danger"><span><h3>{{format_number PRICE}}</h3> VND</span></div>
+                                <div class="text-danger"><span><h4>{{format_number PRICE}}VND</h4></span></div>
                             {{else}}
-                                <div class="text-danger"><span><h3>{{format_number2 PRICE DISCOUNT}}</h3>VND</span></div>
+                                <div class="text-danger"><span><h4>{{format_number2 PRICE DISCOUNT}}VND</h4></span></div>
                                 <del>{{format_number PRICE}}VND</del>
                             {{/if_equal}}
                         </h4></div>
