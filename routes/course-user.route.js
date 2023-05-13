@@ -514,7 +514,7 @@ router.get("/vnpay_return", function (req, res, next) {
   let vnp_Params = req.query;
 
   let secureHash = vnp_Params["vnp_SecureHash"];
-  const courseid = parseInt(vnp_Params["vnp_OrderInfo"]);
+  const courseid = vnp_Params["vnp_OrderInfo"];
   delete vnp_Params["vnp_SecureHash"];
   delete vnp_Params["vnp_SecureHashType"];
 
