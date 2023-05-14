@@ -288,7 +288,7 @@ app.post("/course/edit" ,async function (req, res) {
           PRICE: data.Price,
           VIEWED: 0,
           DESCRIPTIONS: data.FullDes,
-          DISCOUNT: 10,
+          DISCOUNT: data.Discount,
           SHORTDES: data.ShortDes,
           RATENUM: 0,
           STUNUM: 0,
