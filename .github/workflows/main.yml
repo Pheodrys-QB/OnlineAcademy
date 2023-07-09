@@ -1,0 +1,22 @@
+name: Notify
+
+on:
+  [push]
+
+jobs:
+  slackNotification:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
+
+     - name: Slack Notification
+       uses: rtCamp/action-slack-notify@v2
+env:
+  SLACK_CHANNEL: recording
+  SLACK_COLOR: '#efefef'
+  SLACK_ICON: https://github.com/rtCamp.png?size=48
+  SLACK_MESSAGE:  The ${{ github.workflow }} workflow has completed. On branch ${{ github.ref_name }}
+  SLACK_TITLE: Push from github
+  SLACK_USERNAME: NotiBot
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
